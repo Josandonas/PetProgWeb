@@ -25,7 +25,7 @@ function handleNavigate(id){
 
 	return (
 		<View style={styles.container}>
-			<Text> Empresas que usam <Text style={styles.bold}>{tech}</Text> </Text>
+			<Text> Pet Shops de <Text style={styles.bold}>{tech}</Text> </Text>
 
 			<FlatList
 				style={styles.list}
@@ -35,12 +35,13 @@ function handleNavigate(id){
 				showsHorizontalScrollIndicator={false}
 				renderItem={({item})=>(
 					<View style={styles.listItem}>
-						<Image style={styles.thumbnail} source={ {uri: item.thumbnail_url} } />
-						<Text style={styles.company}>{item.company}</Text>
-						<Text style={styles.price}>{item.price ? `R${item.price}/dia`: 'GRATUITO'}</Text>
+						<Image style={styles.thumbnail} source={ {uri: item.imagem} } />
+						<Text style={styles.lugar}>{item.lugar}</Text>
+						<Text style={styles.endereco}>{item.endereco}</Text>
+						<Text style={styles.valor}>{item.valor ? `R${item.valor}/dia`: 'Valor a combinar'}</Text>
 						<TouchableOpacity onPress={() => handleNavigate(item._id)} style={styles.button}>
 
-							<Text style={styles.buttonText}>Solicitar reserva</Text>
+							<Text style={styles.buttonText}>Agendar</Text>
 
 					</TouchableOpacity>
 					</View>
@@ -75,13 +76,19 @@ const styles = StyleSheet.create({
 		borderRadius: 2,
 	},
 
-	company:{
+	lugar:{
 		fontSize:24,
 		fontWeight:'bold',
 		color:'#333',
 		marginTop: 10,
 	},
-	price:{
+	endereco:{
+		fontSize:24,
+		fontWeight:'bold',
+		color:'#333',
+		marginTop: 10,
+	},
+	valor:{
 		fontSize: 15,
 		color: '#999',
 		marginTop: 5

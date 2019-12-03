@@ -5,51 +5,66 @@ import api from '../services/api';
 
 import logo from '../assets/logo.png';
 
-export default function Login({ navigation}){
-    const [email,setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+export default function Dados({ navigation}){
+    const [nome,setNome] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [endereco, setEndereco] = useState('');
+    const [tech,setTechs] = useState('');
 
     async function handleSubmit(){
-        const response = await api.post('/sessions',{
-            email,senha
-        })
-
-        const {_id} = response.data;
-
-        await AsyncStorage.setItem('user',_id);
-
-        navigation.navigate('Dados');
+        navigation.navigate('List');
     }
-
-
 
     return(
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <Image source={logo}/>
             <View style={styles.form}>
-                <Text style={styles.label}>E-mail *</Text>
+                <Text style={styles.label}>Nome *</Text>
                 <TextInput 
                     style={styles.input}
-                    placeholder="Seu e-mail"
-                    placeholderTextColor="#999"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    value={email}
-                    onChangeText={setEmail}
-                />
-                <Text style={styles.label}>Senha *</Text>
-                <TextInput 
-                    style={styles.input}
-                    placeholder="Sua Senha"
+                    placeholder="Nome e útilmo sobrenome"
                     placeholderTextColor="#999"
                     autoCapitalize="words"
                     autoCorrect={false}
-                    value={senha}
-                    onChangeText={setSenha}
+                    value={nome}
+                    onChangeText={setNome}
+                />
+                <Text style={styles.label}>Telefone *</Text>
+                <TextInput 
+                    style={styles.input}
+                    placeholder="Seu telefone"
+                    placeholderTextColor="#999"
+                    keyboardType="number-pad"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    value={telefone}
+                    onChangeText={setTelefone}
+                />
+
+                <Text style={styles.label}>Endereço *</Text>
+                <TextInput 
+                    style={styles.input}
+                    placeholder="Rua, número"
+                    placeholderTextColor="#999"
+                    keyboardType="default"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    value={endereco}
+                    onChangeText={setEndereco}
+                />
+                <Text style={styles.label}>Cidade *</Text>
+                <TextInput 
+                    style={styles.input}
+                    placeholder="Corumbá ou Ladário"
+                    placeholderTextColor="#999"
+                    keyboardType="default"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    value={tech}
+                    onChangeText={setTechs}
                 />
                 <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-                    <Text style={styles.buttonText}>Entrar</Text>
+                    <Text style={styles.buttonText}>Guardar dados</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView> 
