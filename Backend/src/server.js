@@ -12,15 +12,23 @@ const app = express();
 const server = http.Server(app);
 const io = socketio(server);
 
-io.on('connection', socket =>{
-    console.log('Usuário conectado', socket.id);
-});
-
 mongoose.connect('mongodb+srv://progweb:1234@cluster0-lhqd6.azure.mongodb.net/test?retryWrites=true&w=majority',{
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
 
+const connectUsers = {};
+
+io.on('connection', socket => {
+    const { user_id } = socket.handshake.query;
+    connectUsers[user_id] = socket.id;
+});
+
+app.use((req,res,next)=>{
+    req.io=io;
+    req.connectUsers=connectUsers;
+    return next();
+})
 // GET, POST, PUT, DELETE
 
 // req.query = ACessr query params (para filtros)
