@@ -28,10 +28,8 @@ export default function Dashboard() {
                     user_id
                 }
             })
-
             setSpots(response.data)
         }
-
         loadSpots()
     }, [])
 
@@ -66,11 +64,11 @@ export default function Dashboard() {
                 { spots.map(spot => (
                     <li key={spot._id}>
                         <header style={{
-                            backgroundImage: `url(${spot.imagem_url})`
+                            backgroundImage: `url(${spot.imagem})`
                         }}/>
                         <strong>{spot.lugar}</strong>
-                        <strong>{spot.endereco}</strong>
-                        <strong>{spot.telefone}</strong>
+                        <span>{spot.endereco}</span>
+                        <span>{spot.telefone}</span>
                         <span>{spot.valor ? `R$${spot.valor}/dia` : 'Tratar atráves do contato'}</span>
                     </li>
                 ))

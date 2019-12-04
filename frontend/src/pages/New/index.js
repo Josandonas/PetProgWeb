@@ -1,22 +1,15 @@
 import React, {useState, useMemo} from 'react';
 import api from '../../services/api'
-import camera from '../../assets/camera.svg';
 import './styles1.css';
 
 export default function New({history}){
-    const [imagem, setImagem]= useState(null);
+    const [imagem, setImagem]= useState('');
     const [lugar, setLugar]= useState('');
     const [servicos,setServicos]= useState('');
     const [valor,setValor]= useState('');
     const [telefone, setTelefone] = useState('');
     const [endereco, setEndereco] = useState('');
-   
-    const preview = useMemo(
-        () => {
-            return imagem ? URL.createObjectURL(imagem): null;
-        },
-        [imagem]
-    )
+    const [tech, setTechs] = useState('');
 
     async function handleSubimit(event){
         event.preventDefault();
@@ -24,24 +17,25 @@ export default function New({history}){
         const user_id = localStorage.getItem('user');
         data.append('imagem', imagem);
         data.append('lugar', lugar);
-        data.append('servicos', servicos);
-        data.append('valor',valor);
         data.append('telefone', telefone);
         data.append('endereco', endereco);
+        data.append('servicos', servicos);
+        data.append('valor',valor);
+        data.append('tech', tech);
         await api.post('/spots', data, {
             headers:{user_id}
         })
         history.push('/dashboard');
     }
-
-
     return(
-        <form onSubmit={handleSubimit}>
-            <label id="imagem" style={{backgroundImage: `url(${preview})`}} className={imagem ? 'has-imagem' : ''}>
-                <input type="file" onChange={event => setImagem(event.target.files[0])} />
-                <input type="file"/>
-                <img src={camera} alt="Selecione imagem"/>
-            </label>
+        <form onSubmit={handleSubimit} >
+            <label htmlFor="imagem" >Imagem  </label>
+            <input id="imagem"
+                placeholder="Digite o nome da petshop"
+                value={imagem}
+                onChange={event => setImagem(event.target.value)}
+                >
+            </input>
             <label htmlFor="Lugar">Nome do Petshop *</label>
             <input
                 id="lugar"
@@ -49,28 +43,35 @@ export default function New({history}){
                 value={lugar}
                 onChange={event => setLugar(event.target.value)}
                 />
-            <label htmlFor="valor">Numero de Contato</label>
+            <label htmlFor="telefone">Numero de Contato</label>
             <input
                 id="telefone"
-                placeholder="+5567999999999"
+                placeholder="5567999999999"
                 value={telefone}
                 onChange={event => setTelefone(event.target.value)}
             />  
-            <label htmlFor="valor">Endereco</label>
+            <label htmlFor="endereco">Endereço</label>
             <input
                 id="endereco"
                 placeholder="Rua Frajola N43"
                 value={endereco}
                 onChange={event => setEndereco(event.target.value)}
             />                                
-            <label htmlFor="servicos">Servicos *<span>(separados por vírgula)</span> </label>
+            <label htmlFor="servicos">Serviços *<span>(separados por vírgula)</span> </label>
                 <input
                     id="servicos"
                     placeholder="Digite os servicos oferecidos"
                     value={servicos}
                     onChange={event => setServicos(event.target.value)}
                 />
-            <label htmlFor="valor">Valor pelo servico *<span>(em branco para Tratar atráves do contato)</span> </label>
+            <label htmlFor="techs">Cidade *<span>(Corumbá ou Ladário)</span> </label>
+            <input
+                id="techs"
+                placeholder="Digite a cidade"
+                value={tech}
+                onChange={event => setTechs(event.target.value)}
+            />                
+            <label htmlFor="valor">Valor pelo serviço *<span>(em branco para Tratar atráves do contato)</span> </label>
                 <input
                     id="valor"
                     placeholder="valor cobrado por dia"

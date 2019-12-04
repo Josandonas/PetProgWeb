@@ -7,6 +7,7 @@ const SpotSchema = new mongoose.Schema({
     telefone:Number,
     endereco:String,
     servicos:[String],
+    tech:[String],
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -16,9 +17,5 @@ const SpotSchema = new mongoose.Schema({
     virtuals: true,
   },
 });
-
-SpotSchema.virtual('imagem_url').get(function(){
-  return `http://localhost:3333/files/${this.imagem}`
-})
 
 module.exports = mongoose.model('Spot', SpotSchema);
