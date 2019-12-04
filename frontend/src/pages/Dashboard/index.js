@@ -5,10 +5,10 @@ import api from '../../services/api'
 
 import './styles.css'
 
-export default function Dashboard() {
+export default function Dashboard({history}) {
     const [spots, setSpots] = useState([])
     const [requests, setRequests] = useState([])
-    
+
     const user_id = localStorage.getItem('user')
     const socket = useMemo(() => socketio('http://localhost:3333', {
         query: { user_id }
@@ -42,6 +42,12 @@ export default function Dashboard() {
         await api.post(`/bookings/${id}/rejections`)
         setRequests(requests.filter(request => request._id !== id))
     }
+    async function adelete(v){
+      const response = await api.delete(`/spots/${v}`, {params:{spot_id:v}});
+      console.log(response);
+      history.push('/spots');
+    }
+
 
     return (
         <>
@@ -54,7 +60,7 @@ export default function Dashboard() {
                             </p>
                             <button className="accept" onClick={() => handleAccept(request._id)}>ACEITAR</button>
                             <button className="reject" onClick={() => handleReject(request._id)}>REJEITAR</button>
-    
+
                         </li>
                     ))
                 }
@@ -70,11 +76,11 @@ export default function Dashboard() {
                         <span>{spot.endereco}</span>
                         <span>{spot.telefone}</span>
                         <span>{spot.valor ? `R$${spot.valor}/dia` : 'Tratar atráves do contato'}</span>
+                        <button className="btn" onClick={()=> adelete(spot._id)}>DELETE</button>
                     </li>
                 ))
                 }
             </ul>
-
             <Link to="/new">
                 <button className="btn">Cadastrar novo Petshop</button>
             </Link>

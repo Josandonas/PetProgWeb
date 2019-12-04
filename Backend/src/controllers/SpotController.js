@@ -29,5 +29,13 @@ module.exports = {
         })
 
         return res.json(spot);
-    }
+    },
+    async destroy(req,res){
+      const spot_id = req.params.spot_id;
+      const response = await Spot.findByIdAndDelete(spot_id);
+      if(!response){
+        return res.status(400).json({error:'Error!'})
+      }
+      return res.json(response);
+    },
 }
