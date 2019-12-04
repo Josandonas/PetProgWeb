@@ -1,10 +1,12 @@
 const mongoose= require('mongoose');
 
 const SpotSchema = new mongoose.Schema({
-    thumbnail: String,
-    company: String,
-    price: Number,
-    techs:[String],
+    imagem: String,
+    lugar: String,
+    valor: Number,
+    telefone:Number,
+    endereco:String,
+    servicos:[String],
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -15,8 +17,8 @@ const SpotSchema = new mongoose.Schema({
   },
 });
 
-SpotSchema.virtual('thumbnail_url').get(function(){
-  return `http://localhost:3333/files/${this.thumbnail}`
+SpotSchema.virtual('imagem_url').get(function(){
+  return `http://localhost:3333/files/${this.imagem}`
 })
 
 module.exports = mongoose.model('Spot', SpotSchema);
