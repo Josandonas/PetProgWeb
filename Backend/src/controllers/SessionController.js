@@ -1,16 +1,14 @@
 const User = require('../models/User')
 
-
 module.exports = {
     async store(req, res){
-        const {email} = req.body;
+        const {email,senha} = req.body;
 
         let user = await User.findOne({email});//consulta banco
         //se o usuario nao existe
         if(!user){
             // entao cria usuario sobrescrevendo a var user
-            user = await User.create({email}); 
-    
+            user = await User.create({email,senha}); 
         }
         // finalmente retorna user
         return res.json(user);
