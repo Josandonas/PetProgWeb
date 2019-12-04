@@ -3,6 +3,7 @@ const mongoose= require('mongoose');
 const SpotSchema = new mongoose.Schema({
     thumbnail: String,
     company: String,
+    endereco: String,
     price: Number,
     techs:[String],
     user: {

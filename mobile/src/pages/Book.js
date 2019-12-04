@@ -14,7 +14,7 @@ export default function Book({ navigation}){
         },{
             headers: { user_id}
         })
-        Alert.alert('Solicitação de reserva enviada.');
+        Alert.alert('Solicitação de agendamento enviada.');
 
         navigation.navigate('List');
 
@@ -26,10 +26,10 @@ export default function Book({ navigation}){
 
     return(
         <SafeAreaView style={styles.container}>
-            <Text style={styles.label}>DATA DE INTERESSE *</Text>
+            <Text style={styles.label}>Data para agendamento *</Text>
                 <TextInput 
                     style={styles.input}
-                    placeholder="Qual data você quer reservar?"
+                    placeholder="Qual data você quer marcar para o seu pet?"
                     placeholderTextColor="#999"
                     autoCapitalize="words"
                     autoCorrect={false}
@@ -38,7 +38,7 @@ export default function Book({ navigation}){
                 />
 
                 <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-                    <Text style={styles.buttonText}>Solicitar reserva</Text>
+                    <Text style={styles.buttonText}>Solicitar agendamento</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={handleCancel} style={[styles.button,styles.cancelButton]}>
@@ -51,6 +51,7 @@ export default function Book({ navigation}){
 const styles = StyleSheet.create({
     container:{
         margin:30,
+        backgroundColor:'#ffe999',
     },
 
     label:{
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     },
     button:{
         height:42,
-        backgroundColor:'#f05a5b',
+        backgroundColor:'#fbd032',
         justifyContent:'center',
         alignItems:'center',
         borderRadius: 2,

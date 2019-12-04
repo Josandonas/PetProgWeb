@@ -5,7 +5,7 @@ import api from '../../services/api'
 
 import './styles.css'
 
-export default function Dashboard() {
+export default function Dashboard({history}) {
     const [spots, setSpots] = useState([])
     const [requests, setRequests] = useState([])
     
@@ -44,6 +44,12 @@ export default function Dashboard() {
         await api.post(`/bookings/${id}/rejections`)
         setRequests(requests.filter(request => request._id !== id))
     }
+    async function adelete(v){
+        const response = await api.delete(`/spots/${v}`, {params:{spot_id:v}});
+        console.log(response);
+        history.push('/dashboard');
+        window.location.reload();
+    }
 
     return (
         <>
@@ -69,14 +75,16 @@ export default function Dashboard() {
                             backgroundImage: `url(${spot.thumbnail_url})`
                         }}/>
                         <strong>{spot.company}</strong>
-                        <span>{spot.price ? `R$${spot.price}/dia` : 'GRATUITO'}</span>
+                        <span>{spot.price ? `R$${spot.price}` : 'GRATUITO'}</span>
+                        <span>{spot.endereco}</span>
+                        <button className="btn" onClick={()=> adelete(spot._id)}>DELETE</button>
                     </li>
                 ))
                 }
             </ul>
 
             <Link to="/new">
-                <button className="btn">Cadastrar novo spot</button>
+                <button className="btn">Cadastrar nova Pet Shop</button>
             </Link>
         </>
     )

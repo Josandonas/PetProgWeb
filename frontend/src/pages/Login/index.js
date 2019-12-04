@@ -17,7 +17,7 @@ export default function Login({ history }){
     return (
         <>
         <p>
-            Ofereça serviços de <strong>banho</strong> e <strong>tosa</strong>.
+            Ofereça serviços de <strong>banho</strong> e <strong>tosa</strong> para os pets de estimação.
         </p>
         <form onSubmit= {handleSubmit}>
             <label htmlFor="email">E-mail *</label>

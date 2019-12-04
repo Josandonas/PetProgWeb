@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div className="container">
-      <img src={logo} alt=""/>
+      <img src={logo} alt="PetOn"/>
       <div className="content">
       <Routes />
       </div>

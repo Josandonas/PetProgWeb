@@ -6,6 +6,7 @@ import './styles1.css';
 export default function New({history}){
     const [thumbnail, setThumbnail]= useState(null);
     const [company, setCompany]= useState('');
+    const [endereco, setEndereco]= useState('');
     const [techs,setTechs]= useState('');
     const [price,setPrice]= useState('');
    
@@ -22,6 +23,7 @@ export default function New({history}){
         const user_id = localStorage.getItem('user');
         data.append('thumbnail', thumbnail);
         data.append('company', company);
+        data.append('endereco',endereco);
         data.append('techs', techs);
         data.append('price',price);
         await api.post('/spots', data, {
@@ -38,28 +40,35 @@ export default function New({history}){
                 <input type="file"/>
                 <img src={camera} alt="Selecione imagem"/>
             </label>
-            <label htmlFor="company">Empresa *</label>
+            <label htmlFor="company">Pet Shop *</label>
             <input
                 id="company"
-                placeholder="Sua empresa incrivel"
+                placeholder="Nome da sua Pet Shop"
                 value={company}
                 onChange={event => setCompany(event.target.value)}
                 />
-            <label htmlFor="techs">Tecnologia *<span>(separadas por vírgula)</span> </label>
+            <label htmlFor="techs">Cidade *</label>
                 <input
                     id="techs"
-                    placeholder="Quais tecnologias usam?"
+                    placeholder="Corumbá ou Ladário"
                     value={techs}
                     onChange={event => setTechs(event.target.value)}
                 />
-            <label htmlFor="price">Valor cobrado por dia *<span>(em branco para GRATUITO)</span> </label>
+            <label htmlFor="endereco">Endereço *</label>
+                <input
+                    id="endereco"
+                    placeholder="Rua e número"
+                    value={endereco}
+                    onChange={event => setEndereco(event.target.value)}
+                />
+            <label htmlFor="price">Valor cobrado pelo serviço * </label>
                 <input
                     id="price"
-                    placeholder="valor cobrado por dia"
+                    placeholder="valor de banho e tosa"
                     value={price}
                     onChange={event => setPrice(event.target.value)}
                 />
-                <button type="submit" className="btn">Cadastrar</button>
+                <button type="submit" className="btn">Cadastrar Pet Shop</button>
             </form>
 
     )

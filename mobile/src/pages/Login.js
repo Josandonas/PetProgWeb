@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View,Image,AsyncStorage, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 
 import api from '../services/api';
@@ -8,6 +8,14 @@ import logo from '../assets/logo.png';
 export default function Login({ navigation}){
     const [email,setEmail] = useState('');
     const [techs, setTechs] = useState('');
+
+   /* useEffect(()=> {
+        AsyncStorage.getItem('user').then(user => {
+            if (user){
+                navigation.navigate('List');
+            }
+        })
+    }, []);*/
 
     async function handleSubmit(){
         const response = await api.post('/sessions',{
@@ -38,10 +46,10 @@ export default function Login({ navigation}){
                     value={email}
                     onChangeText={setEmail}
                 />
-                <Text style={styles.label}>Tecnologias *</Text>
+                <Text style={styles.label}>Cidade *</Text>
                 <TextInput 
                     style={styles.input}
-                    placeholder="Tecnologias de interesse"
+                    placeholder="Corumbá ou Ladário"
                     placeholderTextColor="#999"
                     autoCapitalize="words"
                     autoCorrect={false}
@@ -49,7 +57,7 @@ export default function Login({ navigation}){
                     onChangeText={setTechs}
                 />
                 <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-                    <Text style={styles.buttonText}>Encontrar spots</Text>
+                    <Text style={styles.buttonText}>Encontrar Pet Shops</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView> 
@@ -59,7 +67,8 @@ const styles= StyleSheet.create({
     container:{
         flex:1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor:'#ffe999',
 
     },
     form:{
@@ -85,7 +94,7 @@ const styles= StyleSheet.create({
     },
     button:{
         height:42,
-        backgroundColor:'#f05a5b',
+        backgroundColor:'#fbd032',
         justifyContent:'center',
         alignItems:'center',
         borderRadius: 2,

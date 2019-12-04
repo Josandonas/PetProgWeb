@@ -12,7 +12,7 @@ module.exports = {
 
     async store( req, res) {
         const { filename} = req.file;
-        const {company, techs, price} = req.body;
+        const {company, techs, endereco, price} = req.body;
         const {user_id } = req.headers;
 
         const user = await User.findById(user_id);
@@ -26,9 +26,18 @@ module.exports = {
             thumbnail: filename,
             company,
             techs: techs.split(',').map(tech => tech.trim()),
+            endereco,
             price
         })
 
         return res.json(spot);
-    }
+    },
+    async destroy(req,res){
+      const spot_id = req.params.spot_id;
+      const response = await Spot.findByIdAndDelete(spot_id);
+      if(!response){
+        return res.status(400).json({error:'Error!'})
+      }
+      return res.json(response);
+    },
 }
