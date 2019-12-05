@@ -38,7 +38,12 @@ module.exports = {
       }
       return res.json(response);
     },
+    
     async edit(req, res) {
-        const spot_id = req.params.spot_id;
+        const response = await Spot.findOne(spot_id);
+        if (!response) {
+            return res.status(400).json({ error: 'Error!' })
+        }
+        return res.json(response);
     },
 }

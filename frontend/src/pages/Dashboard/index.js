@@ -51,7 +51,7 @@ export default function Dashboard({history}) {
     async function edita(v) {
         const response = await api.editar(`/spots/${v}`, { params: { spot_id: v } });
         console.log('Vamos editar', response);
-        history.push('/edicao');
+        history.push('/pesquisa');
         refreshPage();
     }
     async function refreshPage() {
@@ -85,7 +85,8 @@ export default function Dashboard({history}) {
                         <span>{spot.endereco}</span>
                         <span>{spot.telefone}</span>
                         <span>{spot.valor ? `R$${spot.valor}/dia` : 'Tratar atráves do contato'}</span>
-                        <button className="btn" onClick={() => adelete(spot._id)}>Apagar</button> <button className="btn" onClick={() => edita(spot._id)}>Editar</button>
+                        <button className="btn" onClick={() => adelete(spot._id)}>Apagar</button>
+                        <button className="editar" onClick={() => edita(spot._id)}>Editar</button>
                     </li>
                 ))
                 }

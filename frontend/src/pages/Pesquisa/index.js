@@ -1,35 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
+import { Link } from 'react-router-dom'
 import api from '../../services/api';
-
-export default function Login({ history }) {
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+import './styles2.css'
+export default function Pesquisa({ history }) {
+    const [tech, setTech] = useState('');
     async function handleSubmit(event) {
         event.preventDefault();
-        const response = await api.post('/sessions', { email, senha });
-        const { _id } = response.data;
-
-        console.log(_id);
-
-        localStorage.setItem('user', _id);
-        history.push('/resultados');
+        localStorage.setItem('spot', tech);
+        history.push('/resultado');
     }
-
     return (
         <>
-            <p>
-                Ofereça serviços de <strong>banho</strong> e <strong>tosa</strong>.
-        </p>
+        <p>Digite  Suas Modificações.</p>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email">E-mail *</label>
+                <label htmlFor="tech">Cidade *</label>
                 <input
-                    type="email"
-                    id="email"
-                    placeholder="seu melhor email"
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
+                    type="techs"
+                    id="techs"
+                    placeholder="Digite a cidade"
+                    value={tech}
+                    onChange={event => setTech(event.target.value)}
                 />
-                <button className="btn" type="submit">Entrar</button>
+                <button className="btn" type="submit">Salvar</button>
+                <Link to="/dashboard">
+                    <button className="busca">Voltar</button>
+                </Link>
             </form>
         </>
     )
