@@ -38,4 +38,7 @@ module.exports = {
       }
       return res.json(response);
     },
+    async edit(req, res) {
+        const spot_id = req.params.spot_id;
+    },
 }

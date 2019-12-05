@@ -4,6 +4,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import New from './pages/New';
 import Login from './pages/Login';
+import Pesquisa from './pages/Pesquisa';
 
 export default function Routes(){
     return (
@@ -12,6 +13,7 @@ export default function Routes(){
         <Route path = '/' exact component={Login} />        
         <Route path = '/dashboard' component={Dashboard} />
         <Route path = '/new' component={New} />
+        <Route path='/pesquisa' component={Pesquisa} />
         </Switch>
         </BrowserRouter>
     )

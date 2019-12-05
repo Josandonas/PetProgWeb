@@ -44,10 +44,19 @@ export default function Dashboard({history}) {
     }
     async function adelete(v){
       const response = await api.delete(`/spots/${v}`, {params:{spot_id:v}});
-      console.log(response);
-      history.push('/spots');
+      console.log('Excluido com sucesso',response);
+      history.push('/dashboard');
+      refreshPage();
     }
-
+    async function edita(v) {
+        const response = await api.editar(`/spots/${v}`, { params: { spot_id: v } });
+        console.log('Vamos editar', response);
+        history.push('/edicao');
+        refreshPage();
+    }
+    async function refreshPage() {
+        window.location.reload();
+    }
 
     return (
         <>
@@ -76,13 +85,17 @@ export default function Dashboard({history}) {
                         <span>{spot.endereco}</span>
                         <span>{spot.telefone}</span>
                         <span>{spot.valor ? `R$${spot.valor}/dia` : 'Tratar atráves do contato'}</span>
-                        <button className="btn" onClick={()=> adelete(spot._id)}>DELETE</button>
+                        <button className="btn" onClick={() => adelete(spot._id)}>Apagar</button> <button className="btn" onClick={() => edita(spot._id)}>Editar</button>
                     </li>
                 ))
                 }
             </ul>
             <Link to="/new">
                 <button className="btn">Cadastrar novo Petshop</button>
+            </Link>
+
+            <Link to="/pesquisa">
+                <button className="busca">Busca de Petshop na Cidade</button>
             </Link>
         </>
     )
